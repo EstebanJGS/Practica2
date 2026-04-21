@@ -8,23 +8,23 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../../static/plugins/fontawesome-free/css/all.min.css" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../../../static/plugins/icheck-bootstrap/icheck-bootstrap.min.css" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../../static/dist/css/adminlte.min.css" th:href="@{/dist/css/adminlte.min.css}">
 </head> 
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Veterinaria</b></a>
+    <a>Veterinaria</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Registrate para continuar</p>
+      <p class="login-box-msg">Inicie sesión para continuar</p>
 
-      <form action="../../index3.html" method="post">
+      <form action="../index.html" method="post"> <!-- en action va la ruta a la que se enviará el formulario -->
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -46,7 +46,7 @@
             <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
-                Remember Me
+                Recordarme
               </label>
             </div>
           </div>
@@ -71,10 +71,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a th:href="@{/auth/forgot-password}" class="float-right">Olvidé mi contraseña</a>
+        <a href="forgot-password.html" th:href="@{/mascotas/auth/forgot-password}" class="float-right">Olvidé mi contraseña</a>
       </p>
       <p class="mb-0">
-        <a th:href="@{/auth/register}" class="text-center">Registrarme</a>
+        <a href="register.html" th:href="@{/mascotas/auth/register}" class="text-center">Registrarme</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -83,10 +83,10 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="../../../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../static/plugins/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
+<script src="../../../static/dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
 </body>
 </html>

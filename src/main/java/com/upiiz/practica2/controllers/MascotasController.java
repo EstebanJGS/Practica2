@@ -6,24 +6,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
+
 @Controller
 @RequestMapping("/mascotas")
 public class MascotasController {
 
     @GetMapping("/login")
     public String auth() {
-        return "auth/login";
+        return "mascotas/auth/login";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "auth/register";
+        return "mascotas/auth/register";
     }
 
     @GetMapping("/forgot-password")
     public String forgotPassword() {
-        return "auth/forgot-password";
+        return "mascotas/auth/forgot-password";
     }
+
+    @GetMapping("/index")
+    public String index() {
+        return "mascotas/index";
+    }
+    
     
     
 
