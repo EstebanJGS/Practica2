@@ -21,7 +21,7 @@ public class MascotasController {
     }
 
     @GetMapping("/forgot-password")
-    public String forgot_password() {
+    public String forgotPassword() {
         return "auth/forgot-password";
     }
     
