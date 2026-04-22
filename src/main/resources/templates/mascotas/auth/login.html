@@ -24,7 +24,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Inicie sesión para continuar</p>
 
-      <form action="../index.html" method="post"> <!-- en action va la ruta a la que se enviará el formulario -->
+      <form action="../index.html" th:action="@{/mascotas/index}" method="get"> <!-- en action va la ruta a la que se enviará el formulario -->
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
