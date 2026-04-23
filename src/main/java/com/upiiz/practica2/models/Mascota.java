@@ -1,9 +1,19 @@
 package com.upiiz.practica2.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "mascotas")
 public class Mascota {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mascota_id") // Nombre exacto de tu columna en MySQL
     private Long id;
+
     private String nombre;
     private String especie;
+
+    @Column(name = "fecha_nacimiento") // Nombre exacto con guion bajo
     private String fechaNacimiento;
 
     public Mascota() {}
@@ -15,6 +25,7 @@ public class Mascota {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }

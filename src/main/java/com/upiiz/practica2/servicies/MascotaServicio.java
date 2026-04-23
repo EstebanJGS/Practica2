@@ -1,38 +1,30 @@
 package com.upiiz.practica2.services;
 
 import com.upiiz.practica2.models.Mascota;
+import com.upiiz.practica2.repositories.MascotaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MascotaServicio {
-    private List<Mascota> mascotas = new ArrayList<>();
-    private Long idCounter = 1L;
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
 
     public List<Mascota> listarTodas() {
-        return mascotas;
+        return mascotaRepository.findAll();
     }
 
     public void guardar(Mascota mascota) {
-        if (mascota.getId() == null) {
-            mascota.setId(idCounter++);
-            mascotas.add(mascota);
-        } else {
-            for (int i = 0; i < mascotas.size(); i++) {
-                if (mascotas.get(i).getId().equals(mascota.getId())) {
-                    mascotas.set(i, mascota);
-                    break;
-                }
-            }
-        }
+        mascotaRepository.save(mascota);
     }
 
     public Mascota buscarPorId(Long id) {
-        return mascotas.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+        return mascotaRepository.findById(id).orElse(null);
     }
 
     public void eliminar(Long id) {
-        mascotas.removeIf(m -> m.getId().equals(id));
+        mascotaRepository.deleteById(id);
     }
 }
