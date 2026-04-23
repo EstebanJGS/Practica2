@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veterinaria | Estadísticas</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="../../../static/plugins/fontawesome-free/css/all.min.css" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+  <link rel="stylesheet" href="../../../static/dist/css/adminlte.min.css" th:href="@{/dist/css/adminlte.min.css}">
+  <link rel="stylesheet" href="../../../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" th:href="@{/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="../../index.html" th:href="@{/index}" class="nav-link">Home</a>
+      </li>
+    </ul>
+  </nav>
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="../../index.html" th:href="@{/index}" class="brand-link">
+      <img src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Veterinaria</span>
+    </a>
+    <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../../../static/dist/img/user2-160x160.jpg" th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block" th:text="${session.usuario}">Alexander Pierce</a>
+        </div>
+      </div>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" th:href="@{/mascotas}" class="nav-link">
+              <i class="nav-icon fas fa-paw"></i>
+              <p>Mascotas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" th:href="@{/citas}" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>Citas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" th:href="@{/historial}" class="nav-link">
+              <i class="nav-icon fas fa-book-open"></i>
+              <p>Historial Clinico</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" th:href="@{/citas/estadistica}" class="nav-link active">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>Estadistica</p>
+            </a>
+          </li>
+          <li class="nav-header"></li>
+          <li class="nav-item">
+            <a href="#" th:href="@{/logout}" class="nav-link">
+              <i class="nav-icon far fa-circle"></i>
+              <p>Salir</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Estadísticas</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="../../index.html" th:href="@{/index}">Inicio</a></li>
+              <li class="breadcrumb-item active">Estadísticas</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 th:text="${totalMascotas}">150</h3>
+                <p>Mascotas Registradas</p>
+              </div>
+              <div class="icon"><i class="fas fa-paw"></i></div>
+              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 th:text="${citasProgramadas}">0</h3>
+                <p>Citas Programadas</p>
+              </div>
+              <div class="icon"><i class="fas fa-calendar-check"></i></div>
+              <a href="#" th:href="@{/citas}" class="small-box-footer">Ver citas <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 th:text="${citasCompletadas}">0</h3>
+                <p>Citas Completadas</p>
+              </div>
+              <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 th:text="${citasCanceladas}">0</h3>
+                <p>Citas Canceladas</p>
+              </div>
+              <div class="icon"><i class="fas fa-calendar-times"></i></div>
+              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-pie mr-2"></i>Citas por Estado</h3>
+              </div>
+              <div class="card-body">
+                <canvas id="graficaEstado" style="min-height: 250px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-bar mr-2"></i>Citas por Mes</h3>
+              </div>
+              <div class="card-body">
+                <canvas id="graficaMes" style="min-height: 250px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-list mr-2"></i>Últimas Citas Registradas</h3>
+              </div>
+              <div class="card-body p-0">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ID Mascota</th>
+                      <th>Fecha y Hora</th>
+                      <th>Motivo</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="cita : ${ultimasCitas}">
+                      <td th:text="${cita.citaId}"></td>
+                      <td th:text="${cita.mascotaId}"></td>
+                      <td th:text="${cita.fechaHora}"></td>
+                      <td th:text="${cita.motivo}"></td>
+                      <td>
+                        <span class="badge"
+                          th:classappend="${cita.estado == 'programada'} ? 'badge-primary' : (${cita.estado == 'completada'} ? 'badge-success' : 'badge-danger')"
+                          th:text="${cita.estado}">
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <a href="#" th:href="@{/citas}" class="btn btn-sm btn-info">
+                  <i class="fas fa-list mr-1"></i> Ver todas las citas
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">VetNet</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 0.1.0
+    </div>
+  </footer>
+  <aside class="control-sidebar control-sidebar-dark"></aside>
+</div>
+
+<script src="../../../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script src="../../../static/plugins/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script src="../../../static/plugins/chart.js/Chart.min.js" th:src="@{/plugins/chart.js/Chart.min.js}"></script>
+<script src="../../../static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" th:src="@{/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+<script src="../../../static/dist/js/adminlte.js" th:src="@{/dist/js/adminlte.js}"></script>
+<script>
+  var ctxDona = document.getElementById('graficaEstado').getContext('2d');
+  new Chart(ctxDona, {
+    type: 'doughnut',
+    data: {
+      labels: ['Programadas', 'Completadas', 'Canceladas'],
+      datasets: [{
+        data: [
+          /*[[${citasProgramadas}]]*/ 0,
+          /*[[${citasCompletadas}]]*/ 0,
+          /*[[${citasCanceladas}]]*/ 0
+        ],
+        backgroundColor: ['#17a2b8', '#28a745', '#dc3545']
+      }]
+    },
+    options: { responsive: true, legend: { position: 'bottom' } }
+  });
+
+  var ctxBar = document.getElementById('graficaMes').getContext('2d');
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+      datasets: [{
+        label: 'Citas por Mes',
+        data: /*[[${citasPorMes}]]*/ [0,0,0,0,0,0,0,0,0,0,0,0],
+        backgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+    }
+  });
+</script>
+</body>
+</html>
