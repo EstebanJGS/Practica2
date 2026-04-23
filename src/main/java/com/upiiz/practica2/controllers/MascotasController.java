@@ -1,11 +1,17 @@
 package com.upiiz.practica2.controllers;
 
-import com.upiiz.practica2.models.Mascota;
-import com.upiiz.practica2.services.MascotaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.upiiz.practica2.models.Mascota;
+import com.upiiz.practica2.services.MascotaServicio;
 
 @Controller
 @RequestMapping("/mascotas")
@@ -30,7 +36,9 @@ public class MascotasController {
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) {
+        // Pasamos el total de mascotas en la Base de Datos a la vista
+        model.addAttribute("totalMascotas", mascotaService.listarTodas().size());
         return "mascotas/index";
     }
 
@@ -46,10 +54,8 @@ public class MascotasController {
     }
 
     @PostMapping("/guardar")
-    public String guardarMascota(@RequestParam String nombre,
-                                 @RequestParam String especie,
-                                 @RequestParam String fecha_nacimiento) {
-        mascotaService.guardar(new Mascota(null, nombre, especie, fecha_nacimiento));
+    public String guardarMascota(@ModelAttribute Mascota mascota) {
+        mascotaService.guardar(mascota);
         return "redirect:/mascotas/listado_mascotas";
     }
 
@@ -60,11 +66,8 @@ public class MascotasController {
     }
 
     @PostMapping("/actualizar")
-    public String actualizarMascota(@RequestParam Long id,
-                                    @RequestParam String nombre,
-                                    @RequestParam String especie,
-                                    @RequestParam String fecha_nacimiento) {
-        mascotaService.guardar(new Mascota(id, nombre, especie, fecha_nacimiento));
+    public String actualizarMascota(@ModelAttribute Mascota mascota) {
+        mascotaService.guardar(mascota);
         return "redirect:/mascotas/listado_mascotas";
     }
 
