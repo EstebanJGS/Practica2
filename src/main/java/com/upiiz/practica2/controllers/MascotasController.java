@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.upiiz.practica2.models.Mascota;
+import com.upiiz.practica2.models.Usuario;
 import com.upiiz.practica2.services.MascotaServicio;
+import com.upiiz.practica2.services.UsuarioService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/mascotas")
@@ -20,9 +25,33 @@ public class MascotasController {
     @Autowired
     private MascotaServicio mascotaService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/login")
-    public String auth() {
+    public String auth(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Correo o contraseña incorrectos.");
+        }
         return "mascotas/auth/login";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(@RequestParam String email, @RequestParam String password, HttpSession session, RedirectAttributes redirectAttributes) {
+        Usuario usuario = usuarioService.autenticar(email, password);
+        if (usuario != null) {
+            session.setAttribute("usuarioLogueado", usuario); // Guardamos el usuario en la sesión
+            return "redirect:/mascotas/index";
+        } else {
+            redirectAttributes.addAttribute("error", "true");
+            return "redirect:/mascotas/login";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Destruimos la sesión
+        return "redirect:/mascotas/login";
     }
 
     @GetMapping("/register")
