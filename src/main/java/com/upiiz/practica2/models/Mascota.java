@@ -15,7 +15,9 @@ public class Mascota {
     @Column(name = "mascota_id") // Nombre exacto de tu columna en MySQL
     private Long id;
 
+    @Column(nullable= false, length=100)
     private String nombre;
+    @Column(nullable=false)
     private String especie;
 
     @Column(name = "fecha_nacimiento") // Nombre exacto con guion bajo
