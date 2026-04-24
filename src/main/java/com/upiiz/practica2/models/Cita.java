@@ -1,4 +1,4 @@
-package com.upiiz.practica2.model;
+package com.upiiz.practica2.models;
 
 import java.time.LocalDateTime;
 
