@@ -29,14 +29,20 @@ public class MascotasController {
     }
 
     @GetMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         // Pasamos el total de mascotas en la Base de Datos a la vista
         model.addAttribute("totalMascotas", mascotaService.listarTodas().size());
         return "mascotas/index";
     }
 
     @GetMapping("/listado_mascotas")
-    public String listadoMascotas(Model model) {
+    public String listadoMascotas(Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("mascotas", mascotaService.listarTodas());
         return "mascotas/vista/listado_mascotas";
     }
@@ -64,7 +70,10 @@ public class MascotasController {
     }
 
     @GetMapping("/editar_mascota/{id}")
-    public String editarMascota(@PathVariable Long id, Model model) {
+    public String editarMascota(@PathVariable Long id, Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         Mascota mascota = mascotaService.buscarPorId(id);
         if (mascota == null) {
             throw new IllegalArgumentException("ID de mascota inválido:" + id);
@@ -86,7 +95,10 @@ public class MascotasController {
     }
 
     @GetMapping("/eliminar_mascota/{id}")
-    public String eliminarMascota(@PathVariable Long id, Model model) {
+    public String eliminarMascota(@PathVariable Long id, Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("mascota", mascotaService.buscarPorId(id));
         return "mascotas/vista/eliminar_mascota";
     }

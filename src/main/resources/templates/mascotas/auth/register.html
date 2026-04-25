@@ -24,9 +24,12 @@
         <div class="card-body register-card-body">
         <p class="login-box-msg">Registra una cuenta nueva</p>
 
-        <form action="../../index.html" th:action="@{/mascotas/index}" method="get">
+        <!-- Mensaje de error si falla el registro -->
+        <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">El correo ya está registrado u ocurrió un error.</div>
+
+        <form th:action="@{/mascotas/auth/register}" th:object="${usuario}" method="post">
             <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Nombre completo">
+            <input type="text" th:field="*{nombre_completo}" class="form-control" placeholder="Nombre completo" required>
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -34,7 +37,7 @@
             </div>
             </div>
             <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" th:field="*{email}" class="form-control" placeholder="Email" required>
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -42,15 +45,7 @@
             </div>
             </div>
             <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Contraseña">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-                </div>
-            </div>
-            </div>
-            <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Repite la contraseña">
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Contraseña" required>
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-lock"></span>

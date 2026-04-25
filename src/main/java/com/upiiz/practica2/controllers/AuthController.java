@@ -54,7 +54,8 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        model.addAttribute("usuario", new Usuario());
         return "mascotas/auth/register";
     }
 
@@ -64,6 +65,7 @@ public class AuthController {
             usuarioService.registrarUsuario(usuario);
             return "redirect:/login"; // Si el registro es exitoso, lo mandamos a iniciar sesión
         } catch (RuntimeException e) {
+            e.printStackTrace(); // Imprime el error en la consola para saber exactamente qué falló
             redirectAttributes.addAttribute("error", "true");
             return "redirect:/register"; // Si el correo ya existe, lo regresamos al registro
         }
