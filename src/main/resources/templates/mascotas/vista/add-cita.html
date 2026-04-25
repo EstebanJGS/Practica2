@@ -22,13 +22,13 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index.html" th:href="@{/index}" class="nav-link">Home</a>
+        <a href="../../index.html" th:href="@{/mascotas/index}" class="nav-link">Home</a>
       </li>
     </ul>
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="../../index.html" th:href="@{/index}" class="brand-link">
+    <a href="../../index.html" th:href="@{/mascotas/index}" class="brand-link">
       <img src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Veterinaria</span>
     </a>
@@ -44,7 +44,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="#" th:href="@{/mascotas}" class="nav-link">
+            <a href="#" th:href="@{/mascotas/listado_mascotas}" class="nav-link">
               <i class="nav-icon fas fa-paw"></i>
               <p>Mascotas</p>
             </a>
@@ -88,7 +88,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../index.html" th:href="@{/index}">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="../../index.html" th:href="@{/mascotas/index}">Inicio</a></li>
               <li class="breadcrumb-item"><a href="list-citas.html" th:href="@{/citas}">Citas</a></li>
               <li class="breadcrumb-item active">Agregar</li>
             </ol>
@@ -109,9 +109,11 @@
                 <div class="card-body">
 
                   <div class="form-group">
-                    <label for="mascotaId">ID Mascota <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" id="mascotaId"
-                           th:field="*{mascotaId}" placeholder="Ej: 101" required>
+                    <label for="mascotaId">Mascota <span class="text-danger">*</span></label>
+                    <select class="form-control" id="mascotaId" th:field="*{mascotaId}" required>
+                      <option value="">-- Seleccione una mascota --</option>
+                      <option th:each="m : ${mascotas}" th:value="${m.id}" th:text="${m.nombre}"></option>
+                    </select>
                   </div>
 
                   <div class="form-group">

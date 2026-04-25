@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.upiiz.practica2.models.Cita;
 import com.upiiz.practica2.repositories.CitaRepository;
+import com.upiiz.practica2.services.MascotaServicio;
 
 @Controller
 @RequestMapping("/citas")
@@ -22,17 +23,22 @@ public class CitaController {
     @Autowired
     private CitaRepository citaRepository;
 
+    @Autowired
+    private MascotaServicio mascotaService;
+
     @GetMapping
     public String listar(Model model) {
         List<Cita> citas = citaRepository.findAll();
         model.addAttribute("citas", citas);
-        return "mascotas/citas/list-citas";
+        return "mascotas/vista/list-citas";
     }
 
-    @GetMapping("/agregar")
-    public String mostrarAgregar(Model model) {
+    @GetMapping("/agregar") // O la ruta que estés usando para mostrar el formulario
+    public String mostrarFormularioNuevaCita(Model model) {
         model.addAttribute("cita", new Cita());
-        return "mascotas/citas/add-cita";
+        // ESTO ES VITAL. Inyectas la lista real de mascotas.
+        model.addAttribute("mascotas", mascotaService.listarTodas()); 
+        return "mascotas/vista/add-cita";
     }
 
     @PostMapping("/agregar")
@@ -46,7 +52,7 @@ public class CitaController {
         Cita cita = citaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
         model.addAttribute("cita", cita);
-        return "mascotas/citas/update-cita";
+        return "mascotas/vista/actualizar-cita";
     }
 
     @PostMapping("/actualizar")
@@ -60,7 +66,7 @@ public class CitaController {
         Cita cita = citaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
         model.addAttribute("cita", cita);
-        return "mascotas/citas/delete-cita";
+        return "mascotas/vista/delete-cita";
     }
 
     @PostMapping("/eliminar")
@@ -76,6 +82,6 @@ public class CitaController {
         model.addAttribute("citasCompletadas", citaRepository.countByEstado(Cita.Estado.completada));
         model.addAttribute("citasCanceladas",  citaRepository.countByEstado(Cita.Estado.cancelada));
         model.addAttribute("ultimasCitas", citaRepository.findAll());
-        return "mascotas/citas/estadistica";
+        return "mascotas/vista/estadistica";
     }
 }

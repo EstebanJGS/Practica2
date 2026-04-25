@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Eliminar Mascota</title>
+    <title>Veterinaria | Eliminar Mascota</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
@@ -24,23 +24,56 @@
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a th:href="@{/mascotas/index}" class="brand-link">
-            <img th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Mascotas App</span>
+        <img th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Veterinaria</span>
         </a>
-
         <div class="sidebar">
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                    <li class="nav-item">
-                        <a th:href="@{/mascotas/listado_mascotas}" class="nav-link">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>Listado de Mascotas</p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+            <img th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+            <a href="#" class="d-block" th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.nombre_completo : 'Usuario'}">Alexander Pierce</a>
+            </div>
+        </div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a th:href="@{/mascotas/listado_mascotas}" class="nav-link active">
+                <i class="nav-icon fas fa-paw"></i>
+                <p>Mascotas</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/citas}" class="nav-link">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>Citas</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/historial}" class="nav-link">
+                <i class="nav-icon fas fa-book-open"></i>
+                <p>Historial Clinico</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/citas/estadistica}" class="nav-link">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>Estadistica</p>
+                </a>
+            </li>
+            <li class="nav-header"></li>
+            <li class="nav-item">
+                <a th:href="@{/logout}" class="nav-link">
+                <i class="nav-icon far fa-circle text-danger"></i>
+                <p>Salir</p>
+                </a>
+            </li>
+            </ul>
+        </nav>
         </div>
     </aside>
+
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -58,7 +91,7 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Confirmar Eliminación</h3>
+                        <h3 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i>Confirmar Eliminación</h3>
                         </div>
                         <div class="card-body text-center">
                             <i class="fas fa-exclamation-triangle fa-4x text-warning mb-3"></i>
@@ -68,21 +101,15 @@
                             <h4 class="text-bold" th:text="'&quot;' + ${mascota.nombre} + '&quot; (ID: ' + ${mascota.id} + ')'">"Firulais" (ID: 1)</h4>
                         </div>
                         <div class="card-footer">
-                            <div class="row">
-                                <div class="col-6">
-                                    <a th:href="@{/mascotas/listado_mascotas}" class="btn btn-secondary btn-block">
-                                        <i class="fas fa-times"></i> Cancelar
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <form th:action="@{/mascotas/eliminar}" method="post">
-                                        <input type="hidden" name="id" th:value="${mascota.id}">
-                                        <button type="submit" class="btn btn-danger btn-block">
-                                            <i class="fas fa-trash"></i> Eliminar Definitivamente
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                        <form th:action="@{/mascotas/eliminar}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${mascota.id}">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash mr-1"></i> Sí, Eliminar
+                            </button>
+                        </form>
+                        <a th:href="@{/mascotas/listado_mascotas}" class="btn btn-secondary ml-2">
+                            <i class="fas fa-times mr-1"></i> Cancelar
+                        </a>
                         </div>
                     </div>
                 </div>

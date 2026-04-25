@@ -21,6 +21,11 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping({"", "/", "/index"})
+    public String rootRedirect() {
+        return "redirect:/mascotas/listado_mascotas";
+    }
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
@@ -34,17 +39,17 @@ public class AuthController {
         Usuario usuario = usuarioService.autenticar(email, password);
         if (usuario != null) {
             session.setAttribute("usuarioLogueado", usuario); // Guardamos el usuario en la sesión
-            return "redirect:/mascotas/index";
+            return "redirect:/mascotas/listado_mascotas";
         } else {
             redirectAttributes.addAttribute("error", "true");
-            return "redirect:mascotas/auth/login";
+            return "redirect:/login";
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Destruimos la sesión
-        return "redirect:mascotas/auth/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/register")
@@ -54,6 +59,6 @@ public class AuthController {
 
     @GetMapping("/forgot-password")
     public String forgotPassword() {
-        return "mascotas/vistas/auth/forgot-password";
+        return "mascotas/auth/forgot-password";
     }
 }

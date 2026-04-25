@@ -15,6 +15,9 @@ public class Mascota {
     @Column(name = "mascota_id") // Nombre exacto de tu columna en MySQL
     private Long id;
 
+    @Column(name = "usuario_id")
+    private Integer usuarioId;
+
     @Column(nullable= false, length=100)
     private String nombre;
     @Column(nullable=false)
@@ -41,4 +44,7 @@ public class Mascota {
     public void setEspecie(String especie) { this.especie = especie; }
     public String getFechaNacimiento() { return fechaNacimiento; }
     public void setFechaNacimiento(String fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
+
+    public Integer getUsuarioId() { return usuarioId; }
+    public void setUsuarioId(Integer usuarioId) { this.usuarioId = usuarioId; }
 }

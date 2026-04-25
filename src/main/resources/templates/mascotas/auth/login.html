@@ -27,7 +27,7 @@
       <!-- Mensaje de error si falla el login -->
       <div th:if="${error}" class="alert alert-danger text-center" role="alert" th:text="${error}"></div>
 
-      <form action="#" th:action="@{/mascotas/login}" method="post"> <!-- ruta actualizada al POST del login -->
+      <form action="#" th:action="@{/login}" method="post"> <!-- ruta actualizada al POST del login -->
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" placeholder="Email" required>
           <div class="input-group-append">
@@ -74,10 +74,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html" th:href="@{/mascotas/forgot-password}" class="float-right">Olvidé mi contraseña</a>
+        <a href="forgot-password.html" th:href="@{/forgot-password}" class="float-right">Olvidé mi contraseña</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" th:href="@{/mascotas/register}" class="text-center">Registrarme</a>
+        <a href="register.html" th:href="@{/register}" class="text-center">Registrarme</a>
       </p>
     </div>
     <!-- /.login-card-body -->
