@@ -42,7 +42,10 @@ public class MascotasController {
     }
 
     @GetMapping("/agregar_mascota")
-    public String agregarMascota(Model model) {
+    public String agregarMascota(Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login"; // Si no hay sesión, lo expulsamos al login inmediatamente
+        }
         model.addAttribute("mascota", new Mascota()); // Agregamos un objeto vacío para el formulario
         return "mascotas/vista/agregar_mascota";
     }

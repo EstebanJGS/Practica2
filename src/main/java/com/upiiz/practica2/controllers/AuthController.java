@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +56,17 @@ public class AuthController {
     @GetMapping("/register")
     public String register() {
         return "mascotas/auth/register";
+    }
+
+    @PostMapping("/register")
+    public String processRegister(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.registrarUsuario(usuario);
+            return "redirect:/login"; // Si el registro es exitoso, lo mandamos a iniciar sesión
+        } catch (RuntimeException e) {
+            redirectAttributes.addAttribute("error", "true");
+            return "redirect:/register"; // Si el correo ya existe, lo regresamos al registro
+        }
     }
 
     @GetMapping("/forgot-password")
