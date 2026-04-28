@@ -3,6 +3,7 @@ package com.upiiz.practica2.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.upiiz.practica2.services.HistorialMedicoService;
 import com.upiiz.practica2.services.MascotaServicio;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/historial")
@@ -41,17 +43,21 @@ public class HistorialMedicoController {
             return "redirect:/login";
         }
         model.addAttribute("historial", new HistorialMedico());
-        model.addAttribute("mascotas", mascotaService.listarTodas()); // Para poder seleccionar a qué mascota pertenece
+        model.addAttribute("mascotas", mascotaService.listarTodas());
         return "mascotas/vista/agregar_historial";
     }
 
     @PostMapping("/guardar")
-    public String guardarHistorial(@ModelAttribute HistorialMedico historial, HttpSession session) {
-        if (session.getAttribute("usuarioLogueado") != null) {
-            historialService.guardar(historial);
-            return "redirect:/historial";
+    public String guardarHistorial(@Valid @ModelAttribute HistorialMedico historial, BindingResult result, Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        if (result.hasErrors()) {
+            model.addAttribute("mascotas", mascotaService.listarTodas());
+            return "mascotas/vista/agregar_historial";
+        }
+        historialService.guardar(historial);
+        return "redirect:/historial";
     }
 
     @GetMapping("/editar_historial/{id}")
@@ -69,12 +75,16 @@ public class HistorialMedicoController {
     }
 
     @PostMapping("/actualizar")
-    public String actualizarHistorial(@ModelAttribute HistorialMedico historial, HttpSession session) {
-        if (session.getAttribute("usuarioLogueado") != null) {
-            historialService.guardar(historial);
-            return "redirect:/historial";
+    public String actualizarHistorial(@Valid @ModelAttribute HistorialMedico historial, BindingResult result, Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        if (result.hasErrors()) {
+            model.addAttribute("mascotas", mascotaService.listarTodas());
+            return "mascotas/vista/editar_historial";
+        }
+        historialService.guardar(historial);
+        return "redirect:/historial";
     }
 
     @GetMapping("/eliminar_historial/{id}")
@@ -87,7 +97,10 @@ public class HistorialMedicoController {
     }
 
     @PostMapping("/eliminar")
-    public String eliminar(@RequestParam Long id) {
+    public String eliminar(@RequestParam Long id, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         historialService.eliminar(id);
         return "redirect:/historial";
     }

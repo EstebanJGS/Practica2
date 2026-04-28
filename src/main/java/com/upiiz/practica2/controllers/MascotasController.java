@@ -3,6 +3,7 @@ package com.upiiz.practica2.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.upiiz.practica2.models.Usuario;
 import com.upiiz.practica2.services.MascotaServicio;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/mascotas")
@@ -33,8 +35,7 @@ public class MascotasController {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        // Pasamos el total de mascotas en la Base de Datos a la vista
-        model.addAttribute("totalMascotas", mascotaService.listarTodas().size());
+        model.addAttribute("totalMascotas", mascotaService.contarTodas());
         return "mascotas/index";
     }
 
@@ -50,23 +51,24 @@ public class MascotasController {
     @GetMapping("/agregar_mascota")
     public String agregarMascota(Model model, HttpSession session) {
         if (session.getAttribute("usuarioLogueado") == null) {
-            return "redirect:/login"; // Si no hay sesión, lo expulsamos al login inmediatamente
+            return "redirect:/login";
         }
-        model.addAttribute("mascota", new Mascota()); // Agregamos un objeto vacío para el formulario
+        model.addAttribute("mascota", new Mascota());
         return "mascotas/vista/agregar_mascota";
     }
 
     @PostMapping("/guardar")
-    public String guardarMascota(@ModelAttribute Mascota mascota, HttpSession session) {
-        // Obtenemos el usuario de la sesión
+    public String guardarMascota(@Valid @ModelAttribute Mascota mascota, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            return "mascotas/vista/agregar_mascota";
+        }
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
         if (usuario != null) {
-            mascota.setUsuarioId(usuario.getUsuarioId()); // Asignamos el ID del usuario a la mascota
+            mascota.setUsuarioId(usuario.getUsuarioId());
             mascotaService.guardar(mascota);
             return "redirect:/mascotas/listado_mascotas";
-        } else {
-            return "redirect:/login"; // Si no hay sesión (se reinició el server), mandamos al login
         }
+        return "redirect:/login";
     }
 
     @GetMapping("/editar_mascota/{id}")
@@ -83,15 +85,17 @@ public class MascotasController {
     }
 
     @PostMapping("/actualizar")
-    public String actualizarMascota(@ModelAttribute Mascota mascota, HttpSession session) {
+    public String actualizarMascota(@Valid @ModelAttribute Mascota mascota, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            return "mascotas/vista/editar_mascota";
+        }
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
         if (usuario != null) {
-            mascota.setUsuarioId(usuario.getUsuarioId()); // Mantenemos la relación en la actualización
+            mascota.setUsuarioId(usuario.getUsuarioId());
             mascotaService.guardar(mascota);
             return "redirect:/mascotas/listado_mascotas";
-        } else {
-            return "redirect:/login";
         }
+        return "redirect:/login";
     }
 
     @GetMapping("/eliminar_mascota/{id}")
@@ -104,7 +108,10 @@ public class MascotasController {
     }
 
     @PostMapping("/eliminar")
-    public String eliminar(@RequestParam Long id) {
+    public String eliminar(@RequestParam Long id, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
         mascotaService.eliminar(id);
         return "redirect:/mascotas/listado_mascotas";
     }

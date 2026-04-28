@@ -24,6 +24,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElse(null);
+    }
+
     // Lógica para autenticar (Login)
     public Usuario autenticar(String email, String password) {
         Optional<Usuario> usuario = usuarioRepository.findByEmail(email);

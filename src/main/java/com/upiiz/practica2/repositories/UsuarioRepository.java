@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.upiiz.practica2.models.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    
-    // Útil para verificar si un email ya existe en el registro y para el login
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
     Optional<Usuario> findByEmail(String email);
 }

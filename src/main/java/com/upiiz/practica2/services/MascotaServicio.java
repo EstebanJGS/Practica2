@@ -17,6 +17,10 @@ public class MascotaServicio {
         return mascotaRepository.findAll();
     }
 
+    public long contarTodas() {
+        return mascotaRepository.count();
+    }
+
     public void guardar(Mascota mascota) {
         mascotaRepository.save(mascota);
     }

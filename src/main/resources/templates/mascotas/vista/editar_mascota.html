@@ -86,7 +86,7 @@
         </section>
 
         <section class="content">
-            <form th:action="@{/mascotas/actualizar}" method="post">
+            <form th:action="@{/mascotas/actualizar}" th:object="${mascota}" method="post">
                 <div class="row">
                     <div class="col-md-12">
                     <div class="card card-warning">
@@ -94,27 +94,26 @@
                             <h3 class="card-title"><i class="fas fa-edit mr-2"></i>Información General</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="inputID">ID Mascota</label>
-                                    <input type="text" id="inputID" name="id" class="form-control" th:value="${mascota.id}" readonly>
-                                </div>
+                                <input type="hidden" th:field="*{id}">
                                 <div class="form-group">
                                     <label for="inputName">Nombre de la Mascota</label>
-                                    <input type="text" id="inputName" name="nombre" class="form-control" th:value="${mascota.nombre}" required>
+                                    <input type="text" id="inputName" th:field="*{nombre}" class="form-control">
+                                    <small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEspecie">Especie</label>
-                                    <select id="inputEspecie" name="especie" class="form-control custom-select" required>
-                                        <option disabled>Selecciona una</option>
-                                        <option value="Perro" th:selected="${mascota.especie == 'Perro'}">Perro</option>
-                                        <option value="Gato" th:selected="${mascota.especie == 'Gato'}">Gato</option>
-                                        <option value="Ave" th:selected="${mascota.especie == 'Ave'}">Ave</option>
-                                        <option value="Otro" th:selected="${mascota.especie == 'Otro'}">Otro</option>
+                                    <select id="inputEspecie" th:field="*{especie}" class="form-control custom-select">
+                                        <option value="">Selecciona una</option>
+                                        <option value="Perro">Perro</option>
+                                        <option value="Gato">Gato</option>
+                                        <option value="Ave">Ave</option>
+                                        <option value="Otro">Otro</option>
                                     </select>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('especie')}" th:errors="*{especie}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputFecha">Fecha de Nacimiento</label>
-                                    <input type="date" id="inputFecha" name="fechaNacimiento" class="form-control" th:value="${mascota.fechaNacimiento}">
+                                    <input type="date" id="inputFecha" th:field="*{fechaNacimiento}" class="form-control">
                                 </div>
                             </div>
                         <div class="card-footer">
