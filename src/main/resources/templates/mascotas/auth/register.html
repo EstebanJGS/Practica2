@@ -27,9 +27,9 @@
         <!-- Mensaje de error si falla el registro -->
         <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">El correo ya está registrado u ocurrió un error.</div>
 
-        <form th:action="@{/mascotas/auth/register}" th:object="${usuario}" method="post">
+        <form th:action="@{/register}" th:object="${usuario}" method="post">
             <div class="input-group mb-3">
-            <input type="text" th:field="*{nombre_completo}" class="form-control" placeholder="Nombre completo" required>
+            <input type="text" th:field="*{nombreCompleto}" class="form-control" placeholder="Nombre completo" required>
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-user"></span>

@@ -46,7 +46,7 @@
           <img src="../../static/dist/img/user2-160x160.jpg" th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a th:href="@{/citas/estadistica}" class="d-block">Alexander Pierce</a>
+          <a th:href="@{/citas/estadistica}" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto}">Alexander Pierce</a>
         </div>
       </div>
 
@@ -71,7 +71,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/estadistica}" class="nav-link">
+            <a th:href="@{/citas/estadistica}" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>Estadistica</p>
             </a>
