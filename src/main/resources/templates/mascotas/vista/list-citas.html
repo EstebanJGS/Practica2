@@ -3,75 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Veterinaria | Listado de Citas</title>
+  <title>Veterinaria | Citas</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="../../../static/plugins/fontawesome-free/css/all.min.css" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-  <link rel="stylesheet" href="../../../static/dist/css/adminlte.min.css" th:href="@{/dist/css/adminlte.min.css}">
-  <link rel="stylesheet" href="../../../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" th:href="@{/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
-  <link rel="stylesheet" href="../../../static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+  <style>
+    body, .content-wrapper { background: #f7f8fc !important; }
+    .main-footer { background: #fff !important; color: #718096; border-top: 1px solid #e2e8f0; }
+    .card { border: none !important; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .card-header { background: #fff !important; border-bottom: 1px solid #e2e8f0 !important; border-radius: 10px 10px 0 0 !important; padding: 16px 24px !important; }
+    .card-title { color: #2d3748; font-weight: 600; font-size: 1rem; margin: 0; }
+    .content-header h1 { color: #2d3748; font-size: 1.4rem; }
+    table thead th { background: #f7f8fc !important; color: #718096; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid #e2e8f0 !important; vertical-align: middle; }
+    table tbody tr td { font-size: 0.9rem; vertical-align: middle; border-top: 1px solid #f0f0f0 !important; }
+    .btn-accion-editar  { background: #eef4fb; color: #2b6cb0; border: none; border-radius: 5px; padding: 4px 12px; font-size: 0.82rem; }
+    .btn-accion-editar:hover  { background: #bee3f8; color: #2b6cb0; text-decoration: none; }
+    .btn-accion-eliminar { background: #fff5f5; color: #c53030; border: none; border-radius: 5px; padding: 4px 12px; font-size: 0.82rem; }
+    .btn-accion-eliminar:hover { background: #fed7d7; color: #c53030; text-decoration: none; }
+    .btn-nuevo { background: #eef4fb; color: #2b6cb0; border: none; border-radius: 6px; }
+    .btn-nuevo:hover { background: #bee3f8; color: #2b6cb0; }
+    .badge-estado { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; text-transform: capitalize; }
+    .badge-programada { background: #bee3f8; color: #2b6cb0; }
+    .badge-completada { background: #c6f6d5; color: #276749; }
+    .badge-cancelada  { background: #fed7d7; color: #9b2c2c; }
+    .mini-stat { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; }
+    .breadcrumb { background: transparent; padding: 0; }
+    .breadcrumb-item a { color: #68a0c8; }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index.html" th:href="@{/mascotas/index}" class="nav-link">Home</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-sm-inline-block"><a th:href="@{/mascotas/index}" class="nav-link">Inicio</a></li>
     </ul>
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="../../index.html" th:href="@{/mascotas/index}" class="brand-link">
-      <img src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/mascotas/index}" class="brand-link">
+      <img th:src="@{/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity:.8">
       <span class="brand-text font-weight-light">Veterinaria</span>
     </a>
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../../../static/dist/img/user2-160x160.jpg" th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto}">Alexander Pierce</a>
-        </div>
+        <div class="image"><img th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image"></div>
+        <div class="info"><a href="#" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto ?: 'Usuario'}">Usuario</a></div>
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="#" th:href="@{/mascotas/listado_mascotas}" class="nav-link">
-              <i class="nav-icon fas fa-paw"></i>
-              <p>Mascotas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/citas}" class="nav-link active">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Citas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/historial}" class="nav-link">
-              <i class="nav-icon fas fa-book-open"></i>
-              <p>Historial Clinico</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/citas/estadistica}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>Estadistica</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/mascotas/listado_mascotas}" class="nav-link"><i class="nav-icon fas fa-paw"></i><p>Mascotas</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas}" class="nav-link active"><i class="nav-icon fas fa-calendar-alt"></i><p>Citas</p></a></li>
+          <li class="nav-item"><a th:href="@{/historial}" class="nav-link"><i class="nav-icon fas fa-book-open"></i><p>Historial Clínico</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas/estadistica}" class="nav-link"><i class="nav-icon fas fa-chart-pie"></i><p>Estadística</p></a></li>
           <li class="nav-header"></li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/logout}" class="nav-link">
-              <i class="nav-icon far fa-circle"></i>
-              <p>Salir</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/logout}" class="nav-link"><i class="nav-icon far fa-circle text-danger"></i><p>Salir</p></a></li>
         </ul>
       </nav>
     </div>
@@ -81,12 +67,10 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Listado de Citas</h1>
-          </div>
+          <div class="col-sm-6"><h1 class="m-0">Citas</h1></div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../index.html" th:href="@{/mascotas/index}">Inicio</a></li>
+              <li class="breadcrumb-item"><a th:href="@{/mascotas/index}">Inicio</a></li>
               <li class="breadcrumb-item active">Citas</li>
             </ol>
           </div>
@@ -96,22 +80,81 @@
 
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Citas Registradas</h3>
-                <div class="card-tools">
-                  <a href="add-cita.html" th:href="@{/citas/agregar}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> Agregar Cita
-                  </a>
-                </div>
-              </div>
-              <div class="card-body">
-                <table id="tablaCitas" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>ID Mascota</th>
-                      <th>Fecha y Hora</th>
-                      <th>Mot
+
+        <!-- Mini-stats de estado -->
+        <div class="mb-3 d-flex flex-wrap" style="gap:8px;">
+          <span class="mini-stat" style="background:#eef4fb; color:#2b6cb0;">
+            <i class="fas fa-calendar-alt fa-xs"></i> Total: <strong th:text="${totalCitas}">0</strong>
+          </span>
+          <span class="mini-stat badge-programada">
+            <i class="fas fa-calendar-check fa-xs"></i> Programadas: <strong th:text="${citasProgramadas}">0</strong>
+          </span>
+          <span class="mini-stat badge-completada">
+            <i class="fas fa-check-circle fa-xs"></i> Completadas: <strong th:text="${citasCompletadas}">0</strong>
+          </span>
+          <span class="mini-stat badge-cancelada">
+            <i class="fas fa-times-circle fa-xs"></i> Canceladas: <strong th:text="${citasCanceladas}">0</strong>
+          </span>
+        </div>
+
+        <!-- Tabla principal -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-calendar-alt mr-2" style="color:#68a0c8;"></i>Listado de Citas</h3>
+            <div class="card-tools">
+              <a th:href="@{/citas/agregar}" class="btn btn-sm btn-nuevo">
+                <i class="fas fa-plus"></i> Nueva Cita
+              </a>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th class="pl-4">#</th>
+                  <th>Mascota ID</th>
+                  <th>Fecha y Hora</th>
+                  <th>Motivo</th>
+                  <th>Estado</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="cita, iter : ${citas}">
+                  <td class="pl-4 text-muted" th:text="${iter.count}">1</td>
+                  <td th:text="${cita.mascotaId}">-</td>
+                  <td style="color:#4a5568;" th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy HH:mm')}">-</td>
+                  <td th:text="${cita.motivo}">-</td>
+                  <td>
+                    <span class="badge-estado"
+                          th:classappend="${cita.estado.name() == 'programada'} ? 'badge-programada' : (${cita.estado.name() == 'completada'} ? 'badge-completada' : 'badge-cancelada')"
+                          th:text="${cita.estado}">-</span>
+                  </td>
+                  <td class="text-center">
+                    <a class="btn-accion-editar" th:href="@{/citas/actualizar/{id}(id=${cita.citaId})}"><i class="fas fa-pencil-alt"></i> Editar</a>
+                    <a class="btn-accion-eliminar ml-1" th:href="@{/citas/eliminar/{id}(id=${cita.citaId})}"><i class="fas fa-trash"></i> Eliminar</a>
+                  </td>
+                </tr>
+                <tr th:if="${citas == null or citas.isEmpty()}">
+                  <td colspan="6" class="text-center py-4" style="color:#a0aec0;"><i class="fas fa-calendar-times mr-1"></i> No hay citas registradas.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2026 <a href="#" style="color:#68a0c8;">VetNet</a>.</strong> Todos los derechos reservados.
+    <div class="float-right d-none d-sm-inline-block"><b>Versión</b> 0.1.0</div>
+  </footer>
+  <aside class="control-sidebar control-sidebar-dark"></aside>
+</div>
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.js}"></script>
+</body>
+</html>

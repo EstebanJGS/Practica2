@@ -1,5 +1,7 @@
 package com.upiiz.practica2.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,22 @@ public class CitaService {
         citaRepository.deleteById(id);
     }
 
+    public long contarTodas() {
+        return citaRepository.count();
+    }
+
     public long contarPorEstado(Cita.Estado estado) {
         return citaRepository.countByEstado(estado);
+    }
+
+    public List<Long> contarPorMes() {
+        List<Long> meses = new ArrayList<>(Collections.nCopies(12, 0L));
+        for (Cita c : citaRepository.findAll()) {
+            if (c.getFechaHora() != null) {
+                int mes = c.getFechaHora().getMonthValue() - 1;
+                meses.set(mes, meses.get(mes) + 1);
+            }
+        }
+        return meses;
     }
 }

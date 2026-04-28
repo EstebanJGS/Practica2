@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.upiiz.practica2.models.Mascota;
 import com.upiiz.practica2.models.Usuario;
+import com.upiiz.practica2.services.CitaService;
+import com.upiiz.practica2.services.HistorialMedicoService;
 import com.upiiz.practica2.services.MascotaServicio;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +27,12 @@ public class MascotasController {
     @Autowired
     private MascotaServicio mascotaService;
 
+    @Autowired
+    private CitaService citaService;
+
+    @Autowired
+    private HistorialMedicoService historialService;
+
     @GetMapping({"", "/"})
     public String baseRedirect() {
         return "redirect:/mascotas/index";
@@ -35,7 +43,13 @@ public class MascotasController {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        model.addAttribute("totalMascotas", mascotaService.contarTodas());
+        model.addAttribute("totalMascotas",   mascotaService.contarTodas());
+        model.addAttribute("totalCitas",       citaService.contarTodas());
+        model.addAttribute("totalHistoriales", historialService.contarTodos());
+        model.addAttribute("citasProgramadas", citaService.contarPorEstado(com.upiiz.practica2.models.Cita.Estado.programada));
+        model.addAttribute("citasCompletadas", citaService.contarPorEstado(com.upiiz.practica2.models.Cita.Estado.completada));
+        model.addAttribute("citasCanceladas",  citaService.contarPorEstado(com.upiiz.practica2.models.Cita.Estado.cancelada));
+        model.addAttribute("especieMascotas",  mascotaService.contarPorEspecie());
         return "mascotas/index";
     }
 
@@ -44,7 +58,9 @@ public class MascotasController {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        model.addAttribute("mascotas", mascotaService.listarTodas());
+        model.addAttribute("mascotas",        mascotaService.listarTodas());
+        model.addAttribute("totalMascotas",   mascotaService.contarTodas());
+        model.addAttribute("especieMascotas", mascotaService.contarPorEspecie());
         return "mascotas/vista/listado_mascotas";
     }
 

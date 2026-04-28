@@ -5,75 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Veterinaria | Estadísticas</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="../../../static/plugins/fontawesome-free/css/all.min.css" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-  <link rel="stylesheet" href="../../../static/dist/css/adminlte.min.css" th:href="@{/dist/css/adminlte.min.css}">
-  <link rel="stylesheet" href="../../../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" th:href="@{/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
+  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+  <style>
+    body, .content-wrapper { background: #f7f8fc !important; }
+    .main-footer { background: #fff !important; color: #718096; border-top: 1px solid #e2e8f0; }
+    .card { border: none !important; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .card-header { background: #fff !important; border-bottom: 1px solid #e2e8f0 !important; border-radius: 10px 10px 0 0 !important; padding: 16px 24px !important; }
+    .card-title { color: #2d3748; font-weight: 600; font-size: 1rem; margin: 0; }
+    .card-footer { background: #f7f8fc !important; border-top: 1px solid #e2e8f0 !important; border-radius: 0 0 10px 10px !important; }
+    .content-header h1 { color: #2d3748; font-size: 1.4rem; }
+    table thead th { background: #f7f8fc !important; color: #718096; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid #e2e8f0 !important; vertical-align: middle; }
+    table tbody tr td { font-size: 0.9rem; vertical-align: middle; border-top: 1px solid #f0f0f0 !important; }
+    .stat-card { border-radius: 10px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); height: 100%; }
+    .stat-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .stat-number { font-size: 1.8rem; font-weight: 700; line-height: 1; margin-bottom: 2px; }
+    .stat-label { font-size: 0.8rem; opacity: 0.7; margin: 0; }
+    .c-blue   { background: #eef4fb; color: #2c5282; } .c-blue   .stat-icon { background: #bee3f8; color: #2b6cb0; }
+    .c-green  { background: #f0faf4; color: #276749; } .c-green  .stat-icon { background: #c6f6d5; color: #276749; }
+    .c-yellow { background: #fef9ec; color: #744210; } .c-yellow .stat-icon { background: #fefcbf; color: #975a16; }
+    .c-red    { background: #fff5f5; color: #742a2a; } .c-red    .stat-icon { background: #fed7d7; color: #c53030; }
+    .c-teal   { background: #e6fffa; color: #234e52; } .c-teal   .stat-icon { background: #b2f5ea; color: #2c7a7b; }
+    .badge-estado { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; text-transform: capitalize; }
+    .badge-programada { background: #bee3f8; color: #2b6cb0; }
+    .badge-completada { background: #c6f6d5; color: #276749; }
+    .badge-cancelada  { background: #fed7d7; color: #9b2c2c; }
+    .vet-bar-wrap { background: #e2e8f0; border-radius: 3px; height: 6px; overflow: hidden; }
+    .vet-bar-fill { height: 100%; background: #bee3f8; border-radius: 3px; }
+    .btn-ver-citas { background: #eef4fb; color: #2b6cb0; border: none; border-radius: 6px; padding: 6px 14px; font-size: 0.85rem; }
+    .btn-ver-citas:hover { background: #bee3f8; color: #2b6cb0; text-decoration: none; }
+    .breadcrumb { background: transparent; padding: 0; }
+    .breadcrumb-item a { color: #68a0c8; }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
-  </div>
-
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index.html" th:href="@{/mascotas/index}" class="nav-link">Home</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-sm-inline-block"><a th:href="@{/mascotas/index}" class="nav-link">Inicio</a></li>
     </ul>
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="../../index.html" th:href="@{/mascotas/index}" class="brand-link">
-      <img src="../../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/mascotas/index}" class="brand-link">
+      <img th:src="@{/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity:.8">
       <span class="brand-text font-weight-light">Veterinaria</span>
     </a>
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../../../static/dist/img/user2-160x160.jpg" th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto}">Alexander Pierce</a>
-        </div>
+        <div class="image"><img th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image"></div>
+        <div class="info"><a href="#" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto ?: 'Usuario'}">Usuario</a></div>
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="#" th:href="@{/mascotas/listado_mascotas}" class="nav-link">
-              <i class="nav-icon fas fa-paw"></i>
-              <p>Mascotas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/citas}" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Citas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/historial}" class="nav-link">
-              <i class="nav-icon fas fa-book-open"></i>
-              <p>Historial Clinico</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/citas/estadistica}" class="nav-link active">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>Estadistica</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/mascotas/listado_mascotas}" class="nav-link"><i class="nav-icon fas fa-paw"></i><p>Mascotas</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas}" class="nav-link"><i class="nav-icon fas fa-calendar-alt"></i><p>Citas</p></a></li>
+          <li class="nav-item"><a th:href="@{/historial}" class="nav-link"><i class="nav-icon fas fa-book-open"></i><p>Historial Clínico</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas/estadistica}" class="nav-link active"><i class="nav-icon fas fa-chart-pie"></i><p>Estadística</p></a></li>
           <li class="nav-header"></li>
-          <li class="nav-item">
-            <a href="#" th:href="@{/logout}" class="nav-link">
-              <i class="nav-icon far fa-circle"></i>
-              <p>Salir</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/logout}" class="nav-link"><i class="nav-icon far fa-circle text-danger"></i><p>Salir</p></a></li>
         </ul>
       </nav>
     </div>
@@ -83,12 +74,10 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Estadísticas</h1>
-          </div>
+          <div class="col-sm-6"><h1 class="m-0">Estadísticas</h1></div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../index.html" th:href="@{/mascotas/index}">Inicio</a></li>
+              <li class="breadcrumb-item"><a th:href="@{/mascotas/index}">Inicio</a></li>
               <li class="breadcrumb-item active">Estadísticas</li>
             </ol>
           </div>
@@ -99,84 +88,158 @@
     <section class="content">
       <div class="container-fluid">
 
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3 th:text="${totalMascotas}">150</h3>
-                <p>Mascotas Registradas</p>
-              </div>
-              <div class="icon"><i class="fas fa-paw"></i></div>
-              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 th:text="${citasProgramadas}">0</h3>
-                <p>Citas Programadas</p>
-              </div>
-              <div class="icon"><i class="fas fa-calendar-check"></i></div>
-              <a href="#" th:href="@{/citas}" class="small-box-footer">Ver citas <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3 th:text="${citasCompletadas}">0</h3>
-                <p>Citas Completadas</p>
-              </div>
-              <div class="icon"><i class="fas fa-calendar-alt"></i></div>
-              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 th:text="${citasCanceladas}">0</h3>
-                <p>Citas Canceladas</p>
-              </div>
-              <div class="icon"><i class="fas fa-calendar-times"></i></div>
-              <a href="#" class="small-box-footer">Ver detalle <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-chart-pie mr-2"></i>Citas por Estado</h3>
-              </div>
-              <div class="card-body">
-                <canvas id="graficaEstado" style="min-height: 250px;"></canvas>
+        <!-- Fila 1: resumen general -->
+        <div class="row mb-3">
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-blue">
+              <div class="stat-icon"><i class="fas fa-paw"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalMascotas}">0</div>
+                <p class="stat-label">Mascotas Registradas</p>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-chart-bar mr-2"></i>Citas por Mes</h3>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-teal">
+              <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalCitas}">0</div>
+                <p class="stat-label">Citas Totales</p>
               </div>
-              <div class="card-body">
-                <canvas id="graficaMes" style="min-height: 250px;"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-yellow">
+              <div class="stat-icon"><i class="fas fa-file-medical"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalHistoriales}">0</div>
+                <p class="stat-label">Historiales Clínicos</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
+        <!-- Fila 2: desglose de citas -->
+        <div class="row mb-4">
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-blue">
+              <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasProgramadas}">0</div>
+                <p class="stat-label">Citas Programadas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-green">
+              <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasCompletadas}">0</div>
+                <p class="stat-label">Citas Completadas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-red">
+              <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasCanceladas}">0</div>
+                <p class="stat-label">Citas Canceladas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 1: citas por estado y citas por mes -->
+        <div class="row mb-4">
+          <div class="col-md-5 mb-3">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-list mr-2"></i>Últimas Citas Registradas</h3>
+                <h3 class="card-title"><i class="fas fa-chart-pie mr-2" style="color:#68a0c8;"></i>Citas por Estado</h3>
+              </div>
+              <div class="card-body d-flex justify-content-center">
+                <canvas id="graficaEstado" style="max-height:240px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 mb-3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-bar mr-2" style="color:#68a0c8;"></i>Citas por Mes</h3>
+              </div>
+              <div class="card-body">
+                <canvas id="graficaMes" style="min-height:220px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 2: mascotas por especie e historiales por mes -->
+        <div class="row mb-4">
+          <div class="col-md-5 mb-3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-pie mr-2" style="color:#68a0c8;"></i>Mascotas por Especie</h3>
+              </div>
+              <div class="card-body d-flex justify-content-center">
+                <canvas id="graficaEspecie" style="max-height:240px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 mb-3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-bar mr-2" style="color:#68a0c8;"></i>Historiales por Mes</h3>
+              </div>
+              <div class="card-body">
+                <canvas id="graficaHistorial" style="min-height:220px;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablas: veterinarios frecuentes + últimas citas -->
+        <div class="row mb-4">
+
+          <!-- Veterinarios más frecuentes -->
+          <div class="col-md-5 mb-3">
+            <div class="card h-100">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-user-md mr-2" style="color:#68a0c8;"></i>Veterinarios Frecuentes</h3>
+              </div>
+              <div class="card-body">
+                <div th:if="${veterinariosFrecuentes == null or veterinariosFrecuentes.isEmpty()}"
+                     class="text-center py-4" style="color:#a0aec0;">
+                  <i class="fas fa-user-md mr-1"></i> Sin datos de veterinarios.
+                </div>
+                <div th:each="entry, iter : ${veterinariosFrecuentes}" class="mb-3" th:if="${iter.index < 10}">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span style="font-size:0.85rem; color:#2d3748; font-weight:500;" th:text="${entry.key}">Vet</span>
+                    <span style="font-size:0.82rem; font-weight:700; color:#276749;"
+                          th:text="${entry.value + ' consulta' + (entry.value != 1 ? 's' : '')}">0</span>
+                  </div>
+                  <div class="vet-bar-wrap">
+                    <div class="vet-bar-fill"
+                         th:style="'width:' + (${totalHistoriales} > 0 ? (${entry.value} * 100 / ${totalHistoriales}) : 0) + '%'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Últimas citas -->
+          <div class="col-md-7 mb-3">
+            <div class="card h-100">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-list mr-2" style="color:#68a0c8;"></i>Últimas Citas</h3>
               </div>
               <div class="card-body p-0">
-                <table class="table table-striped table-sm">
+                <table class="table mb-0">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>ID Mascota</th>
+                      <th class="pl-4">ID</th>
+                      <th>Mascota ID</th>
                       <th>Fecha y Hora</th>
                       <th>Motivo</th>
                       <th>Estado</th>
@@ -184,27 +247,28 @@
                   </thead>
                   <tbody>
                     <tr th:each="cita : ${ultimasCitas}">
-                      <td th:text="${cita.citaId}"></td>
-                      <td th:text="${cita.mascotaId}"></td>
-                      <td th:text="${cita.fechaHora}"></td>
-                      <td th:text="${cita.motivo}"></td>
+                      <td class="pl-4 text-muted" th:text="${cita.citaId}">1</td>
+                      <td th:text="${cita.mascotaId}">1</td>
+                      <td style="color:#4a5568;" th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy HH:mm')}">-</td>
+                      <td th:text="${cita.motivo}">-</td>
                       <td>
-                        <span class="badge"
-                          th:classappend="${cita.estado == 'programada'} ? 'badge-primary' : (${cita.estado == 'completada'} ? 'badge-success' : 'badge-danger')"
-                          th:text="${cita.estado}">
-                        </span>
+                        <span class="badge-estado"
+                              th:classappend="${cita.estado.name() == 'programada'} ? 'badge-programada' : (${cita.estado.name() == 'completada'} ? 'badge-completada' : 'badge-cancelada')"
+                              th:text="${cita.estado}">-</span>
                       </td>
+                    </tr>
+                    <tr th:if="${ultimasCitas == null or ultimasCitas.isEmpty()}">
+                      <td colspan="5" class="text-center py-4" style="color:#a0aec0;"><i class="fas fa-calendar-times mr-1"></i> No hay citas registradas.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="card-footer">
-                <a href="#" th:href="@{/citas}" class="btn btn-sm btn-info">
-                  <i class="fas fa-list mr-1"></i> Ver todas las citas
-                </a>
+                <a th:href="@{/citas}" class="btn-ver-citas"><i class="fas fa-list mr-1"></i> Ver todas las citas</a>
               </div>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -212,23 +276,18 @@
   </div>
 
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">VetNet</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.0
-    </div>
+    <strong>Copyright &copy; 2026 <a href="#" style="color:#68a0c8;">VetNet</a>.</strong> Todos los derechos reservados.
+    <div class="float-right d-none d-sm-inline-block"><b>Versión</b> 0.1.0</div>
   </footer>
   <aside class="control-sidebar control-sidebar-dark"></aside>
 </div>
-
-<script src="../../../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
-<script src="../../../static/plugins/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script src="../../../static/plugins/chart.js/Chart.min.js" th:src="@{/plugins/chart.js/Chart.min.js}"></script>
-<script src="../../../static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" th:src="@{/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
-<script src="../../../static/dist/js/adminlte.js" th:src="@{/dist/js/adminlte.js}"></script>
-<script>
-  var ctxDona = document.getElementById('graficaEstado').getContext('2d');
-  new Chart(ctxDona, {
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/chart.js/Chart.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.js}"></script>
+<script th:inline="javascript">
+  // Citas por estado
+  new Chart(document.getElementById('graficaEstado').getContext('2d'), {
     type: 'doughnut',
     data: {
       labels: ['Programadas', 'Completadas', 'Canceladas'],
@@ -238,26 +297,79 @@
           /*[[${citasCompletadas}]]*/ 0,
           /*[[${citasCanceladas}]]*/ 0
         ],
-        backgroundColor: ['#17a2b8', '#28a745', '#dc3545']
-      }]
-    },
-    options: { responsive: true, legend: { position: 'bottom' } }
-  });
-
-  var ctxBar = document.getElementById('graficaMes').getContext('2d');
-  new Chart(ctxBar, {
-    type: 'bar',
-    data: {
-      labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-      datasets: [{
-        label: 'Citas por Mes',
-        data: /*[[${citasPorMes}]]*/ [0,0,0,0,0,0,0,0,0,0,0,0],
-        backgroundColor: '#007bff'
+        backgroundColor: ['#bee3f8', '#c6f6d5', '#fed7d7'],
+        borderColor: ['#90cdf4', '#9ae6b4', '#fc8181'],
+        borderWidth: 1
       }]
     },
     options: {
       responsive: true,
-      scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+      maintainAspectRatio: true,
+      legend: { position: 'bottom' },
+      cutoutPercentage: 60
+    }
+  });
+
+  // Citas por mes
+  new Chart(document.getElementById('graficaMes').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+      datasets: [{
+        label: 'Citas',
+        data: /*[[${citasPorMes}]]*/ [0,0,0,0,0,0,0,0,0,0,0,0],
+        backgroundColor: '#bee3f8',
+        borderColor: '#90cdf4',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }] },
+      legend: { display: false }
+    }
+  });
+
+  // Mascotas por especie
+  var especieLabels = /*[[${especieMascotas.keySet()}]]*/ [];
+  var especieData   = /*[[${especieMascotas.values()}]]*/ [];
+  var paletteEspecie = ['#bee3f8','#c6f6d5','#fefcbf','#fed7d7','#b2f5ea','#fbd38d','#d6bcfa','#fbb6ce','#90cdf4','#9ae6b4'];
+  new Chart(document.getElementById('graficaEspecie').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: especieLabels,
+      datasets: [{
+        data: especieData,
+        backgroundColor: paletteEspecie.slice(0, especieLabels.length),
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      legend: { position: 'bottom' },
+      cutoutPercentage: 60
+    }
+  });
+
+  // Historiales por mes
+  new Chart(document.getElementById('graficaHistorial').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+      datasets: [{
+        label: 'Historiales',
+        data: /*[[${historialPorMes}]]*/ [0,0,0,0,0,0,0,0,0,0,0,0],
+        backgroundColor: '#c6f6d5',
+        borderColor: '#9ae6b4',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }] },
+      legend: { display: false }
     }
   });
 </script>

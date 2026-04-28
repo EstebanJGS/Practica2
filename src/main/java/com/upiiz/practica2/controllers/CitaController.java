@@ -1,7 +1,5 @@
 package com.upiiz.practica2.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.upiiz.practica2.models.Cita;
 import com.upiiz.practica2.services.CitaService;
+import com.upiiz.practica2.services.HistorialMedicoService;
 import com.upiiz.practica2.services.MascotaServicio;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,13 +29,19 @@ public class CitaController {
     @Autowired
     private MascotaServicio mascotaService;
 
+    @Autowired
+    private HistorialMedicoService historialService;
+
     @GetMapping
     public String listar(Model model, HttpSession session) {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        List<Cita> citas = citaService.listarTodas();
-        model.addAttribute("citas", citas);
+        model.addAttribute("citas",            citaService.listarTodas());
+        model.addAttribute("totalCitas",       citaService.contarTodas());
+        model.addAttribute("citasProgramadas", citaService.contarPorEstado(Cita.Estado.programada));
+        model.addAttribute("citasCompletadas", citaService.contarPorEstado(Cita.Estado.completada));
+        model.addAttribute("citasCanceladas",  citaService.contarPorEstado(Cita.Estado.cancelada));
         return "mascotas/vista/list-citas";
     }
 
@@ -117,11 +122,17 @@ public class CitaController {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        model.addAttribute("totalMascotas", mascotaService.contarTodas());
-        model.addAttribute("citasProgramadas", citaService.contarPorEstado(Cita.Estado.programada));
-        model.addAttribute("citasCompletadas", citaService.contarPorEstado(Cita.Estado.completada));
-        model.addAttribute("citasCanceladas",  citaService.contarPorEstado(Cita.Estado.cancelada));
-        model.addAttribute("ultimasCitas", citaService.listarTodas());
+        model.addAttribute("totalMascotas",        mascotaService.contarTodas());
+        model.addAttribute("totalCitas",            citaService.contarTodas());
+        model.addAttribute("totalHistoriales",      historialService.contarTodos());
+        model.addAttribute("citasProgramadas",      citaService.contarPorEstado(Cita.Estado.programada));
+        model.addAttribute("citasCompletadas",      citaService.contarPorEstado(Cita.Estado.completada));
+        model.addAttribute("citasCanceladas",       citaService.contarPorEstado(Cita.Estado.cancelada));
+        model.addAttribute("citasPorMes",           citaService.contarPorMes());
+        model.addAttribute("ultimasCitas",          citaService.listarTodas());
+        model.addAttribute("especieMascotas",       mascotaService.contarPorEspecie());
+        model.addAttribute("historialPorMes",       historialService.contarPorMes());
+        model.addAttribute("veterinariosFrecuentes",historialService.contarPorVeterinario());
         return "mascotas/vista/estadistica";
     }
 }

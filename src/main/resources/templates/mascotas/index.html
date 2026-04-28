@@ -3,169 +3,187 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Veterinaria | Pagina de inicio</title>
-
+  <title>Veterinaria | Inicio</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="../../static/plugins/fontawesome-free/css/all.min.css" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="../../static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
-  <link rel="stylesheet" href="../../static/plugins/icheck-bootstrap/icheck-bootstrap.min.css" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
-  <link rel="stylesheet" href="../../static/plugins/jqvmap/jqvmap.min.css" th:href="@{/plugins/jqvmap/jqvmap.min.css}">
-  <link rel="stylesheet" href="../../static/dist/css/adminlte.min.css" th:href="@{/dist/css/adminlte.min.css}">
-  <link rel="stylesheet" href="../../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" th:href="@{/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
-  <link rel="stylesheet" href="../../static/plugins/daterangepicker/daterangepicker.css" th:href="@{/plugins/daterangepicker/daterangepicker.css}">
-  <link rel="stylesheet" href="../../static/plugins/summernote/summernote-bs4.min.css" th:href="@{/plugins/summernote/summernote-bs4.min.css}">
-
+  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+  <style>
+    body, .content-wrapper { background: #f7f8fc !important; }
+    .main-footer { background: #fff !important; color: #718096; border-top: 1px solid #e2e8f0; }
+    .card { border: none !important; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .card-header { background: #fff !important; border-bottom: 1px solid #e2e8f0 !important; border-radius: 10px 10px 0 0 !important; padding: 16px 24px !important; }
+    .card-title { color: #2d3748; font-weight: 600; font-size: 1rem; margin: 0; }
+    .content-header h1 { color: #2d3748; font-size: 1.4rem; }
+    .stat-card { border-radius: 10px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); height: 100%; }
+    .stat-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .stat-number { font-size: 1.9rem; font-weight: 700; line-height: 1; margin-bottom: 2px; }
+    .stat-label { font-size: 0.8rem; opacity: 0.7; margin: 0; }
+    .stat-link { margin-top: 5px; font-size: 0.78rem; text-decoration: none; opacity: 0.6; display: inline-block; }
+    .stat-link:hover { opacity: 1; }
+    .c-blue   { background: #eef4fb; color: #2c5282; } .c-blue   .stat-icon { background: #bee3f8; color: #2b6cb0; } .c-blue   .stat-link { color: #2b6cb0; }
+    .c-green  { background: #f0faf4; color: #276749; } .c-green  .stat-icon { background: #c6f6d5; color: #276749; } .c-green  .stat-link { color: #276749; }
+    .c-yellow { background: #fef9ec; color: #744210; } .c-yellow .stat-icon { background: #fefcbf; color: #975a16; } .c-yellow .stat-link { color: #975a16; }
+    .c-red    { background: #fff5f5; color: #742a2a; } .c-red    .stat-icon { background: #fed7d7; color: #c53030; } .c-red    .stat-link { color: #c53030; }
+    .c-teal   { background: #e6fffa; color: #234e52; } .c-teal   .stat-icon { background: #b2f5ea; color: #2c7a7b; } .c-teal   .stat-link { color: #2c7a7b; }
+    .especie-bar { height: 6px; border-radius: 3px; background: #bee3f8; margin-top: 4px; transition: width .3s; }
+    .breadcrumb { background: transparent; padding: 0; }
+    .breadcrumb-item a { color: #68a0c8; }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <div class="preloader flex-column justify-content-center align-items-center" style="display: none;">
-    <img class="animation__shake" src="../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
-  </div>
-
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="/mascotas/index" th:href="@{/mascotas/index}" class="nav-link">Inicio</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-sm-inline-block"><a th:href="@{/mascotas/index}" class="nav-link">Inicio</a></li>
     </ul>
   </nav>
+
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="/mascotas/index" th:href="@{/mascotas/index}" class="brand-link">
-      <img src="../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/mascotas/index}" class="brand-link">
+      <img th:src="@{/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity:.8">
       <span class="brand-text font-weight-light">Veterinaria</span>
     </a>
-
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../../static/dist/img/user2-160x160.jpg" th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a th:href="@{/citas/estadistica}" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto}">Alexander Pierce</a>
-        </div>
+        <div class="image"><img th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image"></div>
+        <div class="info"><a href="#" class="d-block" th:text="${session.usuarioLogueado?.nombreCompleto ?: 'Usuario'}">Usuario</a></div>
       </div>
-
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="/mascotas/listado_mascotas" th:href="@{/mascotas/listado_mascotas}" class="nav-link">
-              <i class="nav-icon fas fa-paw"></i>
-              <p>Mascotas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/citas}" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Citas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/historial}" class="nav-link">
-              <i class="nav-icon fas fa-book-open"></i>
-              <p>Historial Clinico</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/citas/estadistica}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>Estadistica</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/mascotas/listado_mascotas}" class="nav-link"><i class="nav-icon fas fa-paw"></i><p>Mascotas</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas}" class="nav-link"><i class="nav-icon fas fa-calendar-alt"></i><p>Citas</p></a></li>
+          <li class="nav-item"><a th:href="@{/historial}" class="nav-link"><i class="nav-icon fas fa-book-open"></i><p>Historial Clínico</p></a></li>
+          <li class="nav-item"><a th:href="@{/citas/estadistica}" class="nav-link"><i class="nav-icon fas fa-chart-pie"></i><p>Estadística</p></a></li>
           <li class="nav-header"></li>
-          <li class="nav-item">
-            <a th:href="@{/logout}" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p>Salir</p>
-            </a>
-          </li>
+          <li class="nav-item"><a th:href="@{/logout}" class="nav-link"><i class="nav-icon far fa-circle text-danger"></i><p>Salir</p></a></li>
         </ul>
       </nav>
-      </div>
-    </aside>
+    </div>
+  </aside>
 
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
+          <div class="col-sm-6"><h1 class="m-0">Dashboard</h1></div>
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
-          </div></div></div></div>
+            <ol class="breadcrumb float-sm-right"><li class="breadcrumb-item active">Inicio</li></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3 th:text="${totalMascotas}">150</h3>
-                <p>Mascotas Registradas </p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-paw"></i>
-              </div>
-              <a th:href="@{/mascotas/listado_mascotas}" class="small-box-footer">Ver Mascotas <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53</h3>
-                <p>Citas Pendientes</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-calendar-alt"></i>
-              </div>
-              <a th:href="@{/citas}" class="small-box-footer">Historial de Citas <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-                <p>Historiales Clinicos Guardados</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-medical"></i>
-              </div>
-              <a th:href="@{/historial}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          </div>
-      </div></section>
-    </div>
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2026 <a href="#">VetNet</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.0
-    </div>
-  </footer>
 
-  <aside class="control-sidebar control-sidebar-dark">
-    </aside>
+        <!-- Fila 1: resumen general -->
+        <div class="row mb-3">
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-blue">
+              <div class="stat-icon"><i class="fas fa-paw"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalMascotas}">0</div>
+                <p class="stat-label">Mascotas Registradas</p>
+                <a th:href="@{/mascotas/listado_mascotas}" class="stat-link">Ver listado <i class="fas fa-arrow-right fa-xs"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-teal">
+              <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalCitas}">0</div>
+                <p class="stat-label">Citas Totales</p>
+                <a th:href="@{/citas}" class="stat-link">Ver citas <i class="fas fa-arrow-right fa-xs"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-yellow">
+              <div class="stat-icon"><i class="fas fa-file-medical"></i></div>
+              <div>
+                <div class="stat-number" th:text="${totalHistoriales}">0</div>
+                <p class="stat-label">Historiales Clínicos</p>
+                <a th:href="@{/historial}" class="stat-link">Ver historial <i class="fas fa-arrow-right fa-xs"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 2: desglose de citas -->
+        <div class="row mb-4">
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-blue">
+              <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasProgramadas}">0</div>
+                <p class="stat-label">Citas Programadas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-green">
+              <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasCompletadas}">0</div>
+                <p class="stat-label">Citas Completadas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6 mb-3">
+            <div class="stat-card c-red">
+              <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+              <div>
+                <div class="stat-number" th:text="${citasCanceladas}">0</div>
+                <p class="stat-label">Citas Canceladas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 3: distribución de mascotas por especie -->
+        <div class="card" th:if="${especieMascotas != null and !especieMascotas.isEmpty()}">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-paw mr-2" style="color:#68a0c8;"></i>Mascotas por Especie</h3>
+            <div class="card-tools">
+              <a th:href="@{/citas/estadistica}" class="btn btn-sm" style="background:#eef4fb;color:#2b6cb0;border:none;border-radius:6px;">
+                <i class="fas fa-chart-pie"></i> Ver estadísticas completas
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <th:block th:each="entry : ${especieMascotas}">
+                <div class="col-md-3 col-sm-6 mb-3">
+                  <div style="background:#f7f8fc; border-radius:8px; padding:14px 18px;">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span style="font-weight:600; color:#2d3748; font-size:0.9rem;" th:text="${entry.key}">Especie</span>
+                      <span style="font-weight:700; color:#2b6cb0; font-size:1.1rem;" th:text="${entry.value}">0</span>
+                    </div>
+                    <div class="especie-bar"
+                         th:style="'width:' + (${totalMascotas} > 0 ? (${entry.value} * 100 / ${totalMascotas}) : 0) + '%'">
+                    </div>
+                  </div>
+                </div>
+              </th:block>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
   </div>
-<script src="../../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
-<script src="../../static/plugins/jquery-ui/jquery-ui.min.js" th:src="@{/plugins/jquery-ui/jquery-ui.min.js}"></script>
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<script src="../../static/plugins/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script src="../../static/plugins/chart.js/Chart.min.js" th:src="@{/plugins/chart.js/Chart.min.js}"></script>
-<script src="../../static/plugins/sparklines/sparkline.js" th:src="@{/plugins/sparklines/sparkline.js}"></script>
-<script src="../../static/plugins/jqvmap/jquery.vmap.min.js" th:src="@{/plugins/jqvmap/jquery.vmap.min.js}"></script>
-<script src="../../static/plugins/jqvmap/maps/jquery.vmap.usa.js" th:src="@{/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
-<script src="../../static/plugins/jquery-knob/jquery.knob.min.js" th:src="@{/plugins/jquery-knob/jquery.knob.min.js}"></script>
-<script src="../../static/plugins/moment/moment.min.js" th:src="@{/plugins/moment/moment.min.js}"></script>
-<script src="../../static/plugins/daterangepicker/daterangepicker.js" th:src="@{/plugins/daterangepicker/daterangepicker.js}"></script>
-<script src="../../static/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" th:src="@{/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
-<script src="../../static/plugins/summernote/summernote-bs4.min.js" th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
-<script src="../../static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" th:src="@{/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
-<script src="../../static/dist/js/adminlte.js" th:src="@{/dist/js/adminlte.js}"></script>
-<script src="../../static/dist/js/demo.js" th:src="@{/dist/js/demo.js}"></script>
-<script src="../../static/dist/js/pages/dashboard.js" th:src="@{/dist/js/pages/dashboard.js}"></script>
+
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2026 <a href="#" style="color:#68a0c8;">VetNet</a>.</strong> Todos los derechos reservados.
+    <div class="float-right d-none d-sm-inline-block"><b>Versión</b> 0.1.0</div>
+  </footer>
+  <aside class="control-sidebar control-sidebar-dark"></aside>
+</div>
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.js}"></script>
 </body>
 </html>

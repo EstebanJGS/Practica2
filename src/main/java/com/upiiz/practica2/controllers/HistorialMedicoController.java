@@ -33,7 +33,9 @@ public class HistorialMedicoController {
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/login";
         }
-        model.addAttribute("historiales", historialService.listarTodos());
+        model.addAttribute("historiales",           historialService.listarTodos());
+        model.addAttribute("totalHistoriales",      historialService.contarTodos());
+        model.addAttribute("veterinariosFrecuentes",historialService.contarPorVeterinario());
         return "mascotas/vista/listado_historial";
     }
 
